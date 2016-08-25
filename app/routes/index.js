@@ -8,7 +8,7 @@ module.exports = function (app, db) {
 var clickHandler = new ClickHandler(db);
 	app.route('/')
 		.get(function (req, res) {
-			res.sendFile(path + '/public/index.html');
+			res.sendFile(path + '/public/index4.html');
 		});
 
 	app.route('/api/clicks')
