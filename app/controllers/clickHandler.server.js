@@ -5,7 +5,7 @@ function ClickHandler (db) {
 
 	this.getClicks = function (req, res) {
 		clicks
-			.findOne(
+			.findOne (
 				{},
 				{ '_id': false },
 				function (err, result) {

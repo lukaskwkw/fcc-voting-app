@@ -1,7 +1,10 @@
-var User = (function() {
+var log4js = require('log4js');
+var logger = log4js.getLogger('User');
 
-  var mongoose = require('mongoose');
-  var Schema = require('mongoose').Schema;
+var mongoose = require('mongoose');
+var Schema = require('mongoose').Schema;
+
+var User = (function () {
   var userSchema = new Schema({
     id: Number,
     email: {
@@ -21,50 +24,50 @@ var User = (function() {
 
   var _model = mongoose.model('users', userSchema);
 
-  var _findByEmail = function(email, success, fail) {
-    _model.findOne({
-      email: email
-    }, function(e, doc) {
-      if (e || !doc) {
-        fail(e);
+  var _findByEmail = function (email, success, fail) {
+    _model.findOne({email}, function (err, doc) {
+      if (err || !doc) {
+        fail(err);
       } else {
         success(doc)
       }
     })
   }
 
-  var _login = function(email, password, callback) {
-    _findByEmail(email, function(doc) {
-      callback(doc);
-      console.log("User found the user data Doc : ", doc);
-    }, function(err) {
-      console.log(err);
+  var _login = function (email, password, callback) {
+    _findByEmail(email, function (doc) {
+      logger.debug('User found the user data Doc : ', doc);
+
+      return callback(doc);
+    }, function (err) {
+      logger.debug(err);
     })
   }
 
-  var _register = function(email, password, callback) {
-    _findByEmail(email, function(doc) {
+  var _register = function (email, password, callback) {
+    _findByEmail(email, function () {
       throw new Error('Email ' + email + ' already in use ')
-    }, function() {
+    }, function () {
 
-      user = new _model({
-        email : email,
-        crypted_password : password
+      var user = new _model({
+        email,
+        crypted_password: password
       });
 
-      user.save(function(err, doc) {
+      user.save(function (err, doc) {
         if (err) throw err;
 
-        callback(doc);
-        console.log('User Saved Successfully');
+        logger.debug('User Saved Successfully');
+
+        return callback(doc);
       })
 
     })
   }
 
   return {
-    schema : userSchema,    
-    model : _model,  
+    schema: userSchema,
+    model: _model,
     login: _login,
     register: _register,
     findByEmail: _findByEmail
