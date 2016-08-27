@@ -8,13 +8,9 @@ var app = express();
 
 var DB_USER, DB_PASS, DB_NAME;
 
-[DB_USER,
-DB_PASS,
-DB_NAME] = [process.env.DB_USER, process.env.DB_PASS, process.env.DB_NAME]
+[DB_USER, DB_PASS, DB_NAME] = [process.env.DB_USER, process.env.DB_PASS, process.env.DB_NAME]
 
-console.log(DB_USER,
-DB_PASS,
-DB_NAME);
+console.log(DB_USER, DB_PASS, DB_NAME);
 
 mongo.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds037005.mlab.com:37005/' + DB_NAME, function (err, db) {
 

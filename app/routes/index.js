@@ -16,3 +16,83 @@ var clickHandler = new ClickHandler(db);
 		.post(clickHandler.addClick)
 		.delete(clickHandler.resetClicks);
 };
+
+/**	
+
+{
+	total: Int,
+	categories : [
+		{
+			Health: String,
+			Polls : [
+						{
+							PollName: String,
+							patronId: "id" // albo dac obiekt 
+								{ pollData: 
+									{ answers : 
+										[ item1 : { text : string, nbOfVotes : Integer },
+										 item2 : similar ] 
+									} 
+								}
+						},
+
+						{
+							PollName: String,
+							patronId: "id" // albo dac obiekt 
+								{ pollData: 
+									{ answers : 
+										[ item1 : { text : string, nbOfVotes : Integer },
+										 item2 : similar ] 
+									} 
+								}
+						},
+
+						{
+							PollName: String,
+							patronId: "id" // albo dac obiekt 
+								{ pollData: 
+									{ answers : 
+										[ item1 : { text : string, nbOfVotes : Integer },
+										 item2 : similar ] 
+									} 
+								}
+						}
+
+				  ]
+		},
+		{
+			Finance: String,
+			Polls : [
+						{
+							PollName: String,
+							patronId: "id" // albo dac obiekt 
+								{ pollData: 
+									{ answers : 
+										[ item1 : { text : string, nbOfVotes : Integer },
+										 item2 : similar ] 
+									} 
+								}
+						}
+
+				  ]
+		},
+		{
+			Spiritual: String,
+			Polls : [
+						{
+							PollName: String,
+							patronId: "id" // albo dac obiekt 
+								{ pollData: 
+									{ answers : 
+										[ item1 : { text : string, nbOfVotes : Integer },
+										 item2 : similar ] 
+									} 
+								}
+						}
+
+				  ]
+		},
+	]
+}
+
+*/
