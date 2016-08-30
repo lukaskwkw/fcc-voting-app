@@ -30,7 +30,7 @@ var User = (function () {
         return callback();
       }
 
-      if (doc.password !== password) {
+      if (!doc.comparePasswords(doc.password, password)) {
         logger.warn('Password mismatching ');
 
         return callback();

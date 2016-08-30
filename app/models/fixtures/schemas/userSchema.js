@@ -20,15 +20,10 @@ var userSchema = new Schema({
 })
 
 userSchema.methods.encrypt = encryption.encrypt;
-userSchema.methods.decrypt = encryption.decrypt;
+userSchema.methods.comparePasswords = encryption.comparePasswords;
 
 userSchema.path('password').set(function (value) {
   return this.encrypt(value);
-});
-
-userSchema.path('password').get(function (value) {
-  // console.log('schemaUser ', this.decrypt(value));
-  return this.decrypt(value);
 });
 
 module.exports = userSchema;

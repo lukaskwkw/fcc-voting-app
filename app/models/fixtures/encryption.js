@@ -14,15 +14,26 @@ function encrypt (passwordToEncryption) {
   return crypted;
 }
 
-function decrypt (passwordToEncryption) {
-  var decipher = crypto.createDecipher(algorithm, process.env.KEY)
-  var dec = decipher.update(passwordToEncryption, 'hex', 'utf8')
-  dec += decipher.final('utf8');
+function comparePasswords (encryptedPassword, passwordToCompare) {
+  var cipher = crypto.createCipher(algorithm, process.env.KEY)
+  var newCrypted = cipher.update(passwordToCompare, 'utf8', 'hex')
+  newCrypted += cipher.final('hex');
 
-  return dec;
+  if (encryptedPassword === newCrypted)
+    return true;
+
+  return false;
 }
+
+// function decrypt (passwordToEncryption) {
+//   var decipher = crypto.createDecipher(algorithm, process.env.KEY)
+//   var dec = decipher.update(passwordToEncryption, 'hex', 'utf8')
+//   dec += decipher.final('utf8');
+
+//   return dec;
+// }
 
 module.exports = {
 	encrypt,
-	decrypt
+	comparePasswords
 };
