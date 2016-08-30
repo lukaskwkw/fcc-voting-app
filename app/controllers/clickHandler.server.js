@@ -5,9 +5,9 @@ function ClickHandler (db) {
 
 	this.getClicks = function (req, res) {
 		clicks
-			.findOne (
+			.findOne(
 				{},
-				{ '_id': false },
+				{'_id': false},
 				function (err, result) {
 					if (err) {
 						throw err;
@@ -19,7 +19,7 @@ function ClickHandler (db) {
 						clickResults.push(result);
 						res.json(clickResults);
 					} else {
-						clicks.insert({ 'clicks': 0 }, function (err) {
+						clicks.insert({'clicks': 0}, function (err) {
 							if (err) {
 								throw err;
 							}
@@ -44,8 +44,8 @@ function ClickHandler (db) {
 		clicks
 			.findAndModify(
 				{},
-				{ '_id': 1 },
-				{ $inc: { 'clicks': 1 } },
+				{'_id': 1},
+				{$inc: {'clicks': 1}},
 				function (err, result) {
 					if (err) {
 						throw err;
@@ -60,7 +60,7 @@ function ClickHandler (db) {
 		clicks
 			.update(
 				{},
-				{ 'clicks': 0 },
+				{'clicks': 0},
 				function (err, result) {
 					if (err) {
 						throw err;

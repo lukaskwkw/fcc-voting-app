@@ -46,7 +46,7 @@ describe('Users', function () {
 		});
 	});
 
-	it('given correct email and password when calling login on User then should find and return doc', function(done) {
+	it('given correct email and password when calling login on User then should find and return doc', function (done) {
 		User.login('antek1@poczta.pl', 'mocnehasloantka', function (doc) {
 			// logger.info(doc);
 			assert.equal(doc.email, 'antek1@poczta.pl');
@@ -55,7 +55,7 @@ describe('Users', function () {
 		});
 	});
 
-	it('given correct email and incorrect password when calling login on User then should pass undefined', function(done) {
+	it('given correct email and incorrect password when calling login on User then should pass undefined', function (done) {
 		User.login('antek1@poczta.pl', 'zlehaslo', function (doc) {
 			// logger.info(doc);
 			assert.isUndefined(doc);
@@ -63,7 +63,7 @@ describe('Users', function () {
 		});
 	});
 
-	it('given incorrect email when calling login on User then should pass undefined', function(done) {
+	it('given incorrect email when calling login on User then should pass undefined', function (done) {
 		User.login('antek1@poczta2.pl', 'zlehaslo', function (doc) {
 			// logger.info(doc);
 			assert.isUndefined(doc);
