@@ -4,11 +4,22 @@ require('dotenv').config();
 
 var log4js = require('log4js');
 var logger = log4js.getLogger('server');
-
+var bodyParser = require('body-parser');
 var express = require('express');
 var routes = require('./app/routes/index.js');
 var mongo = require('mongodb').MongoClient;
 var app = express();
+var passport = require('passport');
+var jwt = require('jwt-simple');
+
+require('./config/passport')(passport);
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
+// log to console
+// Use the passport package in our application
+app.use(passport.initialize());
 
 var DB_USER, DB_PASS, DB_NAME;
 

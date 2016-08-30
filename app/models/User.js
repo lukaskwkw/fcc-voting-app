@@ -24,23 +24,23 @@ var User = (function () {
 
   var _login = function (email, password, callback) {
     _findByEmail(email, function (doc) {
-      if (doc === null) {
+      if (!doc) {
         logger.warn('user ' + email + ' not found');
 
-        return callback();
+        return callback(new Error('Password mismatching '), null);
       }
 
       if (!doc.comparePasswords(doc.encryptedPassword, password)) {
         logger.warn('Password mismatching ');
 
-        return callback();
+        return callback(new Error('Password mismatching '), null);
       }
 
-      return callback(doc);
+      return callback(null, doc);
     }, function (err) {
       if (err) logger.error(err);
 
-      return callback(err);
+      return callback(err, null);
     })
   }
 
@@ -55,12 +55,12 @@ var User = (function () {
           if (error) {
             logger.warn(error.errmsg);
 
-            return callback(error);
+            return callback(error, null);
           }
 
           logger.debug('User ' + document.email + ' Saved Successfully');
 
-          return callback(document);
+          return callback(null, document);
         })
 
   }
