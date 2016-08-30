@@ -45,11 +45,14 @@ var User = (function () {
   }
 
   var _register = function (email, password, callback) {
+        logger.debug(email, password);
 
         var user = new _model({
           email,
           encryptedPassword: password
         });
+
+        logger.debug(email, password);
 
         user.save(function (error, document) {
           if (error) {
