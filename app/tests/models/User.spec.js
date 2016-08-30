@@ -11,7 +11,10 @@ var User = require('../../models/User.js');
 
 var DB_USER, DB_PASS, DB_NAME;
 
-[DB_USER, DB_PASS, DB_NAME] = [process.env.DB_USER, process.env.DB_PASS, process.env.DB_NAME]
+[DB_USER, DB_PASS, DB_NAME] = [process.env.DB_USER, process.env.DB_PASS, process.env.DB_NAME];
+
+//	in case of change in future
+process.env.KEY = '$FAsx9!@5Az3#5_=_23dd';
 
 mongoose.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds037005.mlab.com:37005/' + DB_NAME);
 
@@ -32,16 +35,18 @@ describe('Users', function () {
 		User.register('tomek22@poczta.pl', 'tomekpass', function (doc) {
 			doc.email.should.equal('tomek22@poczta.pl');
 
-			// thanks to decryption getter seted on userSchema
+			// thanks to decryption getter set on userSchema
 			doc.password.should.not.equal('09fc933275b7b0b00b');
 			doc.password.should.equal('tomekpass');
 			done();
 		});
 	});
 
-	it('given already registered user email when register then should pass undefined', function (done) {
-		User.register('antek1@poczta.pl', 'haslo', function (doc) {
-			assert.isUndefined(doc);
+	it('given already registered user email when register then should pass error', function (done) {
+		User.register('antek1@poczta.pl', 'haslo', function (err) {
+			// logger.info(JSON.stringify(err));
+			const DUPLICATE_KEY_ERROR = 11000;
+			assert.equal(err.code, DUPLICATE_KEY_ERROR);
 			done();
 		});
 	});

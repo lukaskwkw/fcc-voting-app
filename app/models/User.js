@@ -14,8 +14,6 @@ var User = (function () {
 
   var _findByEmail = function (email, success, fail) {
     _model.findOne({email}, function (err, doc) {
-      logger.info('error', err);
-
       if (err) {
         fail(err);
       } else {
@@ -47,13 +45,6 @@ var User = (function () {
   }
 
   var _register = function (email, password, callback) {
-    _findByEmail(email, function (doc) {
-
-      if (doc) {
-        logger.warn('Email ' + email + ' already in use ');
-
-        return callback();
-      }
 
         var user = new _model({
           email,
@@ -61,18 +52,17 @@ var User = (function () {
         });
 
         user.save(function (error, document) {
-          if (error) throw error;
+          if (error) {
+            logger.warn(error.errmsg);
+
+            return callback(error);
+          }
 
           logger.debug('User ' + document.email + ' Saved Successfully');
 
           return callback(document);
         })
 
-    }, function (err) {
-      if (err) logger.error(err);
-
-      return callback(err);
-    })
   }
 
   return {
