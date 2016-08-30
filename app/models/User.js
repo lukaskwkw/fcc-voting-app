@@ -1,31 +1,20 @@
+'use strict';
+
+var mongoose = require('mongoose');
+var userSchema = require('./fixtures/schemas/userSchema.js');
+
 var log4js = require('log4js');
 var logger = log4js.getLogger('User');
 
-var mongoose = require('mongoose');
-var Schema = require('mongoose').Schema;
 
 var User = (function () {
-  var userSchema = new Schema({
-    id: Number,
-    email: {
-      type: String,
-      index: {
-        unique: true,
-        required: true
-      }
-    },
-    polls: [{
-      type: Schema.ObjectId,
-      ref: 'poll'
-    }],
-    crypted_password: String,
-    auth_token: String
-  })
+
 
   var _model = mongoose.model('users', userSchema);
 
   var _findByEmail = function (email, success, fail) {
     _model.findOne({email}, function (err, doc) {
+      //  TO-DO delete !doc OR condition and handle empty doc in _login and _register function or something like that (maybe read mongoose doc)
       if (err || !doc) {
         fail(err);
       } else {
@@ -36,28 +25,39 @@ var User = (function () {
 
   var _login = function (email, password, callback) {
     _findByEmail(email, function (doc) {
-      logger.debug('User found the user data Doc : ', doc);
+      if (doc.password !== password) {
+        logger.warn('Password mismatching ');
+
+        return callback();
+      }
 
       return callback(doc);
     }, function (err) {
-      logger.debug(err);
+      if (err) logger.error(err);
+
+      logger.warn('user ' + email + ' not found');
+
+      return callback();
     })
   }
 
   var _register = function (email, password, callback) {
     _findByEmail(email, function () {
-      throw new Error('Email ' + email + ' already in use ')
-    }, function () {
+      logger.warn('Email ' + email + ' already in use ');
+
+      return callback();
+    }, function (err) {
+      if (err) logger.error(err);
 
       var user = new _model({
         email,
-        crypted_password: password
+        password
       });
 
-      user.save(function (err, doc) {
-        if (err) throw err;
+      user.save(function (error, doc) {
+        if (error) throw error;
 
-        logger.debug('User Saved Successfully');
+        logger.debug('User ' + doc.email + ' Saved Successfully');
 
         return callback(doc);
       })

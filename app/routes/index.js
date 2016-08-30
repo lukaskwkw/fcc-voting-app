@@ -17,7 +17,7 @@ var clickHandler = new ClickHandler(db);
 		.delete(clickHandler.resetClicks);
 };
 
-/**	
+/**
 
 {
 	total: Int,
@@ -27,34 +27,34 @@ var clickHandler = new ClickHandler(db);
 			Polls : [
 						{
 							PollName: String,
-							patronId: "id" // albo dac obiekt 
-								{ pollData: 
-									{ answers : 
+							patronId: "id" // albo dac obiekt
+								{ pollData:
+									{ answers :
 										[ item1 : { text : string, nbOfVotes : Integer },
-										 item2 : similar ] 
-									} 
+										 item2 : similar ]
+									}
 								}
 						},
 
 						{
 							PollName: String,
-							patronId: "id" // albo dac obiekt 
-								{ pollData: 
-									{ answers : 
+							patronId: "id" // albo dac obiekt
+								{ pollData:
+									{ answers :
 										[ item1 : { text : string, nbOfVotes : Integer },
-										 item2 : similar ] 
-									} 
+										 item2 : similar ]
+									}
 								}
 						},
 
 						{
 							PollName: String,
-							patronId: "id" // albo dac obiekt 
-								{ pollData: 
-									{ answers : 
+							patronId: "id" // albo dac obiekt
+								{ pollData:
+									{ answers :
 										[ item1 : { text : string, nbOfVotes : Integer },
-										 item2 : similar ] 
-									} 
+										 item2 : similar ]
+									}
 								}
 						}
 
@@ -65,12 +65,12 @@ var clickHandler = new ClickHandler(db);
 			Polls : [
 						{
 							PollName: String,
-							patronId: "id" // albo dac obiekt 
-								{ pollData: 
-									{ answers : 
+							patronId: "id" // albo dac obiekt
+								{ pollData:
+									{ answers :
 										[ item1 : { text : string, nbOfVotes : Integer },
-										 item2 : similar ] 
-									} 
+										 item2 : similar ]
+									}
 								}
 						}
 
@@ -81,12 +81,12 @@ var clickHandler = new ClickHandler(db);
 			Polls : [
 						{
 							PollName: String,
-							patronId: "id" // albo dac obiekt 
-								{ pollData: 
-									{ answers : 
+							patronId: "id" // albo dac obiekt
+								{ pollData:
+									{ answers :
 										[ item1 : { text : string, nbOfVotes : Integer },
-										 item2 : similar ] 
-									} 
+										 item2 : similar ]
+									}
 								}
 						}
 

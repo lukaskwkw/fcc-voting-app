@@ -1,6 +1,8 @@
 require('dotenv').config();
+var chai = require('chai');
 require('mocha');
-require('should');
+chai.should();
+var assert = chai.assert;
 
 var log4js = require('log4js');
 var logger = log4js.getLogger('spec');
@@ -14,24 +16,59 @@ var DB_USER, DB_PASS, DB_NAME;
 mongoose.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds037005.mlab.com:37005/' + DB_NAME);
 
 describe('Users', function () {
-	beforeEach(function (done) {
-		User.register('antek1@poczta.pl', 'mocnehasloantka', function (doc) {
-			logger.info(doc)
+	before(function (done) {
+		User.register('antek1@poczta.pl', 'mocnehasloantka', function () {
 			done()
 		})
 	});
 
-	afterEach(function (done) {
+	after(function (done) {
 		User.model.remove({}, function () {
 			done();
 		})
 	});
 
-	it('regiester a new user', function (done) {
+	it('given email and password when calling register on User then should return registered doc', function (done) {
 		User.register('tomek22@poczta.pl', 'tomekpass', function (doc) {
 			doc.email.should.equal('tomek22@poczta.pl');
-			doc.crypted_password.should.not.equal('tomekpass');
+
+			// thanks to decryption getter seted on userSchema
+			doc.password.should.not.equal('09fc933275b7b0b00b');
+			doc.password.should.equal('tomekpass');
 			done();
 		});
 	});
+
+	it('given already registered user email when register then should pass undefined', function (done) {
+		User.register('antek1@poczta.pl', 'haslo', function (doc) {
+			assert.isUndefined(doc);
+			done();
+		});
+	});
+
+	it('given correct email and password when calling login on User then should find and return doc', function(done) {
+		User.login('antek1@poczta.pl', 'mocnehasloantka', function (doc) {
+			// logger.info(doc);
+			assert.equal(doc.email, 'antek1@poczta.pl');
+			assert.equal(doc.password, 'mocnehasloantka');
+			done()
+		});
+	});
+
+	it('given correct email and incorrect password when calling login on User then should pass undefined', function(done) {
+		User.login('antek1@poczta.pl', 'zlehaslo', function (doc) {
+			// logger.info(doc);
+			assert.isUndefined(doc);
+			done()
+		});
+	});
+
+	it('given incorrect email when calling login on User then should pass undefined', function(done) {
+		User.login('antek1@poczta2.pl', 'zlehaslo', function (doc) {
+			// logger.info(doc);
+			assert.isUndefined(doc);
+			done()
+		});
+	});
+
 });

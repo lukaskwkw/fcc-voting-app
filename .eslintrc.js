@@ -57,7 +57,7 @@ module.exports = {
             "error",
             "never"
         ],
-        "func-style": "error",
+        "func-style": "off",
         "generator-star-spacing": "error",
         "global-require": "error",
         "guard-for-in": "error",
@@ -205,7 +205,7 @@ module.exports = {
             "single"
         ],
         "radix": "error",
-        "require-jsdoc": "error",
+        "require-jsdoc": "off",
         "rest-spread-spacing": "error",
         "semi": "off",
         "semi-spacing": "error",
