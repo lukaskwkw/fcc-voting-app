@@ -34,6 +34,7 @@
     "passport-jwt": "^2.1.0"
   },
   "devDependencies": {
+    "chai-http": "^3.0.0",
     "eslint": "^3.4.0",
     "mocha": "^3.0.2",
     "should": "^11.1.0"

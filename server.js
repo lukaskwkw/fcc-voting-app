@@ -38,18 +38,4 @@ app.listen(port, function () {
 	logger.debug('Node.js listening on port ' + port + '...');
 });
 
-/*
-mongo.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds037005.mlab.com:37005/' + DB_NAME, function (err, db) {
-
-
-	if (err) {
-		throw new Error('Database failed to connect!');
-	} else {
-		logger.debug('MongoDB successfully connected on port 27017.');
-	}
-
-
-
-});
-
-*/
+module.exports = app;
