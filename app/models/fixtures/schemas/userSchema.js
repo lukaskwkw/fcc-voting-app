@@ -15,14 +15,14 @@ var userSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'poll'
   }],
-  password: String,
+  encryptedPassword: String,
   auth_token: String
 })
 
 userSchema.methods.encrypt = encryption.encrypt;
 userSchema.methods.comparePasswords = encryption.comparePasswords;
 
-userSchema.path('password').set(function (value) {
+userSchema.path('encryptedPassword').set(function (value) {
   return this.encrypt(value);
 });
 

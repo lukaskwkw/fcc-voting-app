@@ -30,7 +30,7 @@ var User = (function () {
         return callback();
       }
 
-      if (!doc.comparePasswords(doc.password, password)) {
+      if (!doc.comparePasswords(doc.encryptedPassword, password)) {
         logger.warn('Password mismatching ');
 
         return callback();
@@ -48,7 +48,7 @@ var User = (function () {
 
         var user = new _model({
           email,
-          password
+          encryptedPassword: password
         });
 
         user.save(function (error, document) {

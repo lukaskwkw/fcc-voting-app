@@ -34,8 +34,8 @@ describe('Users', function () {
 	it('given email and password when calling register on User then should return registered doc', function (done) {
 		User.register('tomek22@poczta.pl', 'tomekpass', function (doc) {
 			doc.email.should.equal('tomek22@poczta.pl');
-			doc.password.should.not.equal('tomekpass');
-			doc.password.should.equal('09fc933275b7b0b00b');
+			doc.encryptedPassword.should.not.equal('tomekpass');
+			doc.encryptedPassword.should.equal('09fc933275b7b0b00b');
 			done();
 		});
 	});
@@ -53,7 +53,7 @@ describe('Users', function () {
 		User.login('antek1@poczta.pl', 'mocnehasloantka', function (doc) {
 			// logger.info(doc);
 			assert.equal(doc.email, 'antek1@poczta.pl');
-			assert.equal(doc.password, '10fc9d397bafb0b014eedbedc1d8d7');
+			assert.equal(doc.encryptedPassword, '10fc9d397bafb0b014eedbedc1d8d7');
 			done()
 		});
 	});
