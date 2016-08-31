@@ -27,7 +27,7 @@ var User = (function () {
       if (!doc) {
         logger.warn('user ' + email + ' not found');
 
-        return callback(new Error('Password mismatching '), null);
+        return callback(new Error('user ' + email + ' not found'), null);
       }
 
       if (!doc.comparePasswords(doc.encryptedPassword, password)) {

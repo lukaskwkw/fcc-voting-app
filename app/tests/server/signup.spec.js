@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 var log4js = require('log4js');
-var logger = log4js.getLogger('spec');
+var logger = log4js.getLogger('spec signup');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
