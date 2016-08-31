@@ -10,12 +10,12 @@ function getToken (headers) {
 		var parted = headers.authorization.split(' ');
 		if (parted.length === 2) {
 			return parted[1];
-		} else {
-			return null;
 		}
-	} else {
+
 		return null;
 	}
+
+	return null;
 }
 
 var userStat = function (req, res) {

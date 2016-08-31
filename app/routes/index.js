@@ -29,5 +29,12 @@ module.exports = function (app) {
 	app.route('/api/userStats')
 		.get(passport.authenticate('jwt', {session: false}), userStats);
 
+	app.route('/api/addPoll')
+		.post(passport.authenticate('jwt', {session: false}), userStats, function (req, res) {
+			logger.info(req.body.data);
+
+			res.json()
+		});
+
 };
 

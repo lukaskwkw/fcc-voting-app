@@ -1,25 +1,18 @@
 var Schema = require('mongoose').Schema;
 
-
-var pollSchema = new Schema({
-	total: Number,
-	categories: [{
-		categoryName: String,
-		Polls: [{
-			pollName: String,
-			pollData: {
-				answers: [{
-					answerText: String,
-					nbOfVotes: Number
-				}]
-			}
-			// patronId: Schema.Tyoes.ObjectId
-		}]
-	}]
+var voteSchema = new Schema({userId: String});
+var choiceSchema = new Schema({
+	text: String,
+	votes: [voteSchema]
 })
 
+var PollSchema = new Schema({
+	category: String,
+	question: String,
+	choices: [choiceSchema]
+})
 
-module.exports = pollSchema;
+module.exports = PollSchema;
 
 /*
 

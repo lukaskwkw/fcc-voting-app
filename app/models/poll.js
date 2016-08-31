@@ -1,23 +1,65 @@
 var mongoose = require('mongoose');
-var pollSchema = require('./fixtures/schemas/pollSchema.js');
+var PollSchema = require('./fixtures/schemas/pollSchema.js');
+
+var log4js = require('log4js');
+var logger = log4js.getLogger('Poll');
 
 var Poll = (function () {
 
-  var _model = mongoose.model('polls', pollSchema);
+  var _model = mongoose.model('polls', PollSchema);
 
-	function _getPolls () {
+	function _getPolls (cb) {
+		_model.find({}, 'question', (err, polls) => {
+			if (err) {
+				logger.error(err)
 
+				return cb(err, null);
+			}
+
+			if (!polls) {
+				var noPolls = new Error('No polls returned');
+				logger.error(noPolls);
+
+				return cb(noPolls, null);
+			}
+
+			// logger.info(polls);
+
+			return cb(null, polls);
+		})
 	}
 
-	function _addPoll () {
+	function _addPoll (data, cb) {
+		var model = new _model({
+			category: data.category,
+			question: data.question,
+			choices: data.choices
+		});
 
+		model.save(function (err, doc) {
+			if (err) {
+				logger.error(err);
+
+				return cb(err, null);
+			}
+
+			// logger.info('everything OK');
+
+			return cb(null, doc);
+		})
 	}
 
-	function _deletePoll () {
+	function _deletePoll (id, cb) {
+		_model.find({_id: id}).remove(function (err, doc) {
+			if (err) {
+				logger.warn(err);
 
-	}
+				return cb(err, null);
+			}
 
-	function _updatePoll () {
+			return cb(null, doc);
+		})
+		.exec();
 
 	}
 
@@ -25,7 +67,7 @@ var Poll = (function () {
 		getPolls: _getPolls,
 		addPoll: _addPoll,
 		deletePoll: _deletePoll,
-		updatePoll: _updatePoll
+		model: _model
 	}
 
 })();
