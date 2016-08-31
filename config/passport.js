@@ -17,18 +17,21 @@ module.exports = function (passport) {
   logger.debug('opts configured');
 
   passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
-    User.findOne({id: jwt_payload.id}, function (err, user) {
-      if (err) {
-        logger.debug('err')
-        return done(err, false);
-      }
+    User.findByEmail(jwt_payload.email, function (user) {
+      // logger.info(jwt_payload);
       if (user) {
-        logger.debug(user)
+        // logger.debug(user)
         done(null, user);
       } else {
-        logger.debug('else')
+        // logger.debug('else')
         done(null, false);
         // or you could create a new account
+      }
+    }, function (err) {
+      if (err) {
+        logger.debug('err')
+
+        return done(err, false);
       }
     });
   }));
