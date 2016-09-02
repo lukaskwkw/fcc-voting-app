@@ -20,10 +20,10 @@ module.exports = function (passport) {
     User.findByEmail(jwt_payload.email, function (user) {
       // logger.info(jwt_payload);
       if (user) {
-        // logger.debug(user)
+        logger.debug(user)
         done(null, user);
       } else {
-        // logger.debug('else')
+        logger.debug('else')
         done(null, false);
         // or you could create a new account
       }

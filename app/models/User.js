@@ -24,16 +24,19 @@ var User = (function () {
 
   var _login = function (email, password, callback) {
     _findByEmail(email, function (doc) {
+      var error = {};
       if (!doc) {
         logger.warn('user ' + email + ' not found');
+        error = {errmsg: 'user ' + email + ' not found'};
 
-        return callback(new Error('user ' + email + ' not found'), null);
+        return callback(error, null);
       }
 
       if (!doc.comparePasswords(doc.encryptedPassword, password)) {
         logger.warn('Password mismatching ');
+        error = {errmsg: 'Password mismatching '};
 
-        return callback(new Error('Password mismatching '), null);
+        return callback(error, null);
       }
 
       return callback(null, doc);

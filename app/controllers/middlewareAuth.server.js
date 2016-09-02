@@ -18,7 +18,7 @@ function getToken (headers) {
 	return null;
 }
 
-var userStat = function (req, res) {
+var middlewareAuth = function (req, res, next) {
 	var token = getToken(req.headers);
 	if (token) {
 		var decoded = jwt.decode(token, process.env.secret);
@@ -29,16 +29,28 @@ var userStat = function (req, res) {
 					msg: 'Authentication failed. User not found.'
 				});
 			}
-			res.json({
-				success: true,
-				msg: 'You have authencitated successfully'
-			})
+
+			req.decoded = decoded;
+
+			return next()
+
 		}, function (err) {
 			if (err) {
 				return logger.error(err);
 			}
 		})
 	}
+	else {
+
+		// logger.info('cokolwiek');
+		req.decoded = false;
+
+		// res.status(403).send({
+		// 		success: false,
+		// 		msg: 'No token provided.'
+			// })
+		return next();
+	}
 }
 
-module.exports = userStat;
+module.exports = middlewareAuth;

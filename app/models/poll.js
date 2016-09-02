@@ -9,7 +9,7 @@ var Poll = (function () {
   var _model = mongoose.model('polls', PollSchema);
 
 	function _getPolls (cb) {
-		_model.find({}, 'question', (err, polls) => {
+		_model.find({}, {}, (err, polls) => {
 			if (err) {
 				logger.error(err)
 

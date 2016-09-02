@@ -55,12 +55,12 @@ describe('Poll', function () {
 
 	it('given poll data when invoking addPoll function then should add poll to the database', function (done) {
 
-		Poll.addPoll(PollData.data1, (err, doc) => {
+		Poll.addPoll(PollData.data2, (err, doc) => {
 			if (err) throw err;
 
 			// logger.info(doc);
 
-			doc.should.have.property('question').equal('Is LSD a nature drag?');
+			doc.should.have.property('question').equal('Test question lorem ipsum');
 
 			done();
 		});

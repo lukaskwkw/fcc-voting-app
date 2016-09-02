@@ -23,11 +23,11 @@ describe('Signup', function () {
 		})
 	});
 
-	after(function (done) {
-		User.model.remove({}, function () {
-			done();
-		})
-	});
+	// after(function (done) {
+	// 	User.model.remove({}, function () {
+	// 		done();
+	// 	})
+	// });
 
 	it('given signup route when posting data to the server then should create a user', function (done) {
 		var user = {

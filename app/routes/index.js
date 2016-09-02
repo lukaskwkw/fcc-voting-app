@@ -6,35 +6,53 @@ var path = process.cwd();
 // var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var signup = require('../controllers/signupHandler.server.js');
 var auth = require('../controllers/authHandler.server.js');
-var userStats = require('../controllers/userStatHandler.server.js');
-var passport = require('passport');
+var middlewareAuth = require('../controllers/middlewareAuth.server.js');
+// var passport = require('passport');
+
+var express = require('express');
+
+var Poll = require('../models/poll.js');
 
 module.exports = function (app) {
-	app.route('/').
-	get(function (req, res) {
-		res.sendFile(path + '/public/index4.html');
-	});
 
-	// app.route('/api/clicks').
-	// get(clickHandler.getClicks).
-	// post(clickHandler.addClick).
-	// delete(clickHandler.resetClicks);
 
-	app.route('/api/signup')
-		.post(signup);
+	var router = express.Router();
 
-	app.route('/api/auth')
-		.post(auth);
-
-	app.route('/api/userStats')
-		.get(passport.authenticate('jwt', {session: false}), userStats);
-
-	app.route('/api/addPoll')
-		.post(passport.authenticate('jwt', {session: false}), userStats, function (req, res) {
-			logger.info(req.body.data);
-
-			res.json()
+	router.route('/signup')
+		.post(signup)
+		.get(function (req, res) {
+			res.sendFile(path + '/public/index.html');
 		});
 
-};
+	router.route('/auth')
+		.post(auth);
 
+
+	router.use(middlewareAuth);
+
+	router.route('/polls')
+		.get(function (req, res) {
+			Poll.getPolls(function (err, polls) {
+				if (err) logger.warn(err)
+
+				return res.json({
+					authencitated: (req.decoded !== false),
+					polls
+				});
+
+			})
+		});
+	// router.post('/poll')
+
+	router.route('/userStats')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/index4.html')
+		});
+
+	// router.route('/userStats')
+	// 	.get(passport.authenticate('jwt', {session: false}), userStats);
+
+
+	app.use('/api', router)
+
+};

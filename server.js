@@ -9,16 +9,17 @@ var express = require('express');
 var routes = require('./app/routes/index.js');
 // var mongo = require('mongodb').MongoClient;
 var app = express();
-var passport = require('passport');
-var jwt = require('jwt-simple');
+// var passport = require('passport');
+// var jwt = require('jwt-simple');
 var mongoose = require('mongoose');
+var path = process.cwd();
 
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // Use the passport package in our application
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
 var DB_USER, DB_PASS, DB_NAME;
 
@@ -26,10 +27,14 @@ var DB_USER, DB_PASS, DB_NAME;
 
 mongoose.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds037005.mlab.com:37005/' + DB_NAME);
 
-require('./config/passport')(passport);
+// require('./config/passport')(passport);
 
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
+
+app.get('/', function (req, res) {
+	res.sendFile(path + '/public/index4.html');
+})
 
 routes(app);
 

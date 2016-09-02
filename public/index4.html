@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 
+<html ng-app="votingApp">
 	<head>
-		<title>Clementine.js - A beginner level MEAN stack application</title>
-		
+		<title>VotingApp</title>
+
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
 		<!-- Latest compiled and minified CSS & JS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	    <link href="/public/vendors/bootstrap-social-gh-pages/assets/css/font-awesome.css" rel="stylesheet">
+
+	    <link href="/public/vendors/bootstrap-social-gh-pages/bootstrap-social.css" rel="stylesheet" >
 
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
-	<body>
-		
+	<body ng-controller="mainController">
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -22,37 +26,100 @@
 					This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
 				</p>
 				<p>
-					<a class="btn btn-primary btn-large" href="#">Learn more</a>
+					<a class="btn btn-sign btn-success btn-large pull-right" ng-click="loginRegPanel=true; form = false;" href="#">Sign In</a>
+					<a class="btn btn-sign btn-warning btn-large pull-right" ng-click="loginRegPanel=true; form = true;" href="#">Sign Up</a>
 				</p>
+			</div>
+
+			<div id="socialLoginPanel" ng-init="loginRegPanel=false" ng-show="loginRegPanel">
+				<div class="container">
+					<hr>
+					<h2 class="text-center" ng-click="loginRegPanel=false"><span class="glyphicon glyphicon-chevron-up"></span></h2>
+					<div class="row" ng-init="form=true">
+						<div class="col-sm-8">
+						<form id="login-form" ng-show="!form" method="post" role="form" style="display: block;">
+											<div class="form-group">
+												<input type="text" ng-model="loginForm.username" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+											</div>
+											<div class="form-group">
+												<input type="password" ng-model="loginForm.password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+											</div>
+											<!-- <div class="form-group text-center">
+												<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+												<label for="remember"> Remember Me</label>
+											</div> -->
+											<span>{{ loginForm }}</span>
+											<div class="form-group">
+												<div class="row">
+													<div class="col-sm-6 col-sm-offset-3">
+														<input type="submit" ng-click="loginFunc(loginForm.username, loginForm.password)" tabindex="4" class="form-control btn btn-login" value="Log In">
+													</div>
+												</div>
+											</div>
+											<!-- <div class="form-group">
+												<div class="row">
+													<div class="col-lg-12">
+														<div class="text-center">
+															<a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
+														</div>
+													</div>
+												</div>
+											</div> -->
+										</form>
+							<form id="register-form" ng-show="form" action="" method="post" role="form">
+																<div class="form-group">
+																	<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+																</div>
+																<div class="form-group">
+																	<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+																</div>
+																<div class="form-group">
+																	<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+																</div>
+																<div class="form-group">
+																	<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+																</div>
+																<div class="form-group">
+																	<div class="row">
+																		<div class="col-sm-6 col-sm-offset-3">
+																			<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register btn-success" value="Register Now">
+																		</div>
+																	</div>
+																</div>
+															</form>
+						</div>
+					  <div class="col-sm-4 social-buttons">
+					  	<a class="btn btn-block btn-social btn-facebook">
+					  	            <span class="fa fa-facebook"></span> Sign in with Facebook
+					  	          </a>
+					  	<a class="btn btn-block btn-social btn-github">
+					  	            <span class="fa fa-github"></span> Sign in with GitHub
+					  	          </a>
+					  	<a class="btn btn-block btn-social btn-google">
+					  	            <span class="fa fa-google"></span> Sign in with Google
+					  	          </a>
+					  </div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-4" ng-repeat="data in parsedData">
 			<h3>
-				Health
+				{{ data.category }}
 			</h3>
-			<div class="panel-group" id="panel-92187">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-92187" href="#panel-element-288278">Best way to die?</a>
-					</div>
-					<div id="panel-element-288278" class="panel-collapse collapse">
-						<div class="panel-body">
-							Anim pariatur cliche...
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-92187" href="#panel-element-341713">In your opinion is there a single ultimate way to cure cancer?</a>
-					</div>
-					<div id="panel-element-341713" class="panel-collapse collapse">
-						<div class="panel-body">
-							Anim pariatur cliche...
-						</div>
-					</div>
-				</div>
+			<div class="panel-group" id="accordion{{ $index }}">
+			  <div class="panel panel-default" ng-repeat="poll in data.polls">
+			    <div class="panel-heading">
+			      <h4 class="panel-title">
+			        <a data-toggle="collapse" href="#collapse{{ $parent.$index + '' + $index }}">{{ poll.question }}</a>
+			      </h4>
+			    </div>
+			    <div id="collapse{{ $parent.$index + '' + $index }}" class="panel-collapse collapse">
+			      <div class="panel-body" ng-repeat="choice in poll.choices">{{ choice.text }} total Votes {{ choice.votes.length }}</div>
+			    </div>
+			  </div>
 			</div>
 			<ul class="pagination">
 				<li>
@@ -77,110 +144,14 @@
 					<a href="#">Next</a>
 				</li>
 			</ul>
-		</div>
-		<div class="col-md-4">
-			<h3>
-				Finance
-			</h3>
-			<div class="panel-group" id="panel-107497">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-107497" href="#panel-element-90111">How many money you really need to survive in your current live situation per month?</a>
-					</div>
-					<div id="panel-element-90111" class="panel-collapse collapse">
-						<div class="panel-body">
-							Anim pariatur cliche...
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-107497" href="#panel-element-380125">Do you need a money to live?</a>
-					</div>
-					<div id="panel-element-380125" class="panel-collapse collapse">
-						<div class="panel-body">
-							Anim pariatur cliche...
-						</div>
-					</div>
-				</div>
 			</div>
-			<ul class="pagination">
-				<li>
-					<a href="#">Prev</a>
-				</li>
-				<li>
-					<a href="#">1</a>
-				</li>
-				<li>
-					<a href="#">2</a>
-				</li>
-				<li>
-					<a href="#">3</a>
-				</li>
-				<li>
-					<a href="#">4</a>
-				</li>
-				<li>
-					<a href="#">5</a>
-				</li>
-				<li>
-					<a href="#">Next</a>
-				</li>
-			</ul>
-		</div>
-		<div class="col-md-4">
-			<h3>
-				Spiritual
-			</h3>
-			<div class="panel-group" id="panel-165762">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-165762" href="#panel-element-497027">Are you live spiritual livestyle?</a>
-					</div>
-					<div id="panel-element-497027" class="panel-collapse collapse">
-						<div class="panel-body">
-							Anim pariatur cliche...
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						 <a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-165762" href="#panel-element-272134">What religion if any do you belive?</a>
-					</div>
-					<div id="panel-element-272134" class="panel-collapse collapse">
-						<div class="panel-body">
-							Anim pariatur cliche...
-						</div>
-					</div>
-				</div>
-			</div>
-			<ul class="pagination">
-				<li>
-					<a href="#">Prev</a>
-				</li>
-				<li>
-					<a href="#">1</a>
-				</li>
-				<li>
-					<a href="#">2</a>
-				</li>
-				<li>
-					<a href="#">3</a>
-				</li>
-				<li>
-					<a href="#">4</a>
-				</li>
-				<li>
-					<a href="#">5</a>
-				</li>
-				<li>
-					<a href="#">Next</a>
-				</li>
-			</ul>
-		</div>
 	</div>
 </div>
 </body>
 <script src="//code.jquery.com/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+<script src="./public/core.js"></script>
+
 </html>

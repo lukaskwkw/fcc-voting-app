@@ -19,8 +19,12 @@ var auth = function (req, res) {
 					});
 				}
 				// logger.info('ERROR:', err, 'DOC:', doc);
+				var dataToEncode = {
+					email: doc.email,
+					password: doc.encryptedPassword
+				}
 
-				var token = jwt.encode(doc, process.env.secret);
+				var token = jwt.encode(dataToEncode, process.env.secret);
 
 				return res.json({
 					token: 'JWT ' + token,
