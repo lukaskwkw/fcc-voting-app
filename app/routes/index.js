@@ -35,6 +35,7 @@ module.exports = function (app) {
 			Poll.getPolls(function (err, polls) {
 				if (err) logger.warn(err)
 
+
 				return res.json({
 					authencitated: (req.decoded !== false),
 					polls

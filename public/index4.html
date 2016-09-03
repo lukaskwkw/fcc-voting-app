@@ -15,6 +15,36 @@
 	</head>
 	<body ng-controller="mainController">
 
+	<div class="container">
+
+
+	<div class="accordion" id="accordion2">
+		<div class="accordion-group">
+			<div class="accordion-heading">
+			  <a  data-toggle="collapse" data-parent="#accordion2" href="#collapseOne" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Add poll</a>
+			</div>
+			<div id="collapseOne" class="accordion-body collapse in">
+				<div class="accordion-inner">
+					Anim pariatur cliche. Minim qui you in1.com probably haven't heard of them et cardigan trust fund culpa biodiesel.
+				</div>
+			</div>
+		</div>
+		<div class="accordion-group">
+			<div class="accordion-heading">
+	          <a href="#" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-heart"></span> Yours polls</a>
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+					Collapsible Group Item #2
+				</a>
+			</div>
+			<div id="collapseTwo" class="accordion-body collapse">
+				<div class="accordion-inner">
+					Anim pariatur cliche...
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -26,12 +56,13 @@
 					This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
 				</p>
 				<p>
-					<a class="btn btn-sign btn-success btn-large pull-right" ng-click="loginRegPanel=true; form = false;" href="#">Sign In</a>
-					<a class="btn btn-sign btn-warning btn-large pull-right" ng-click="loginRegPanel=true; form = true;" href="#">Sign Up</a>
+					<a class="btn btn-sign btn-success btn-large pull-right" ng-show="!$root.auth" ng-click="loginRegPanel=true; form = false;" href="#">Sign In</a>
+					<a class="btn btn-sign btn-warning btn-large pull-right" ng-show="!$root.auth" ng-click="loginRegPanel=true; form = true;" href="#">Sign Up</a>
+					<a class="btn btn-sign btn-danger btn-large pull-right" ng-show="$root.auth" ng-click="logout(); loginRegPanel=false;" href="#">Logout</a>
 				</p>
 			</div>
 
-			<div id="socialLoginPanel" ng-init="loginRegPanel=false" ng-show="loginRegPanel">
+			<div id="socialLoginPanel" ng-init="loginRegPanel=false" ng-show="loginRegPanel && !$root.auth">
 				<div class="container">
 					<hr>
 					<h2 class="text-center" ng-click="loginRegPanel=false"><span class="glyphicon glyphicon-chevron-up"></span></h2>
@@ -52,7 +83,7 @@
 											<div class="form-group">
 												<div class="row">
 													<div class="col-sm-6 col-sm-offset-3">
-														<input type="submit" ng-click="loginFunc(loginForm.username, loginForm.password)" tabindex="4" class="form-control btn btn-login" value="Log In">
+														<input type="submit" ng-click="login(loginForm.username, loginForm.password)" tabindex="4" class="form-control btn btn-login" value="Log In">
 													</div>
 												</div>
 											</div>
@@ -152,6 +183,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
 <script src="./public/core.js"></script>
+<script src="./public/services/auth.service.js"></script>
 
 </html>

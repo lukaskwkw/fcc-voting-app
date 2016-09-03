@@ -4,26 +4,25 @@
  * Description
  */
 
-angular.module('votingApp', []);
 
-function mainController ($scope, $http) {
+angular.module('votingApp', ['ngStorage']);
+
+function mainController ($localStorage, $rootScope, $scope, $http, authService) {
 	$scope.formData = {};
 	$scope.loginForm = {};
 
-	$scope.loginFunc = function (email, password) {
-			var req = {
-				method: 'POST',
-				url: 'http://localhost:3000/api/auth',
-				data: {
-					email,
-					password
-				}
-			}
+	// $scope.auth = false;
+	$rootScope.auth = false;
 
-			$http(req).then((response) => {
-				console.log(response.data);
-			})
-		}
+	if ($localStorage.loggedUser) {
+		$http.defaults.headers.common.Authorization = $localStorage.loggedUser.token;
+		$rootScope.auth = true;
+	}
+
+	$scope.login = authService.login;
+	$scope.logout = authService.logout;
+
+
 		// when landing on the page, get all todos and show them
 	$http.get('/api/polls')
 		.success(function (data) {
