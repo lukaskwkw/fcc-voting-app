@@ -1,0 +1,42 @@
+<div class="row">
+	<div class="col-md-4" ng-repeat="data in parsedData">
+		<h3>
+			{{ data.category }}
+		</h3>
+		<div class="panel-group" id="accordion{{ $index }}">
+		  <div class="panel panel-default" ng-repeat="poll in data.polls">
+		    <div class="panel-heading">
+		      <h4 class="panel-title">
+		        <a data-toggle="collapse" href="#collapse{{ $parent.$index + '' + $index }}">{{ poll.question }}</a>
+		      </h4>
+		    </div>
+		    <div id="collapse{{ $parent.$index + '' + $index }}" class="panel-collapse collapse">
+		      <div class="panel-body" ng-repeat="choice in poll.choices">{{ choice.text }} total Votes {{ choice.votes.length }}</div>
+		    </div>
+		  </div>
+		</div>
+		<ul class="pagination">
+			<li>
+				<a href="#">Prev</a>
+			</li>
+			<li>
+				<a href="#">1</a>
+			</li>
+			<li>
+				<a href="#">2</a>
+			</li>
+			<li>
+				<a href="#">3</a>
+			</li>
+			<li>
+				<a href="#">4</a>
+			</li>
+			<li>
+				<a href="#">5</a>
+			</li>
+			<li>
+				<a href="#">Next</a>
+			</li>
+		</ul>
+		</div>
+</div>

@@ -1,190 +1,108 @@
 <!DOCTYPE html>
-
 <html ng-app="votingApp">
 	<head>
 		<title>VotingApp</title>
-
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
 		<!-- Latest compiled and minified CSS & JS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	    <link href="/public/vendors/bootstrap-social-gh-pages/assets/css/font-awesome.css" rel="stylesheet">
-
-	    <link href="/public/vendors/bootstrap-social-gh-pages/bootstrap-social.css" rel="stylesheet" >
-
+		<link href="/public/vendors/bootstrap-social-gh-pages/assets/css/font-awesome.css" rel="stylesheet">
+		<link href="/public/vendors/bootstrap-social-gh-pages/bootstrap-social.css" rel="stylesheet" >
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 	<body ng-controller="mainController">
-
-	<div class="container">
-
-
-	<div class="accordion" id="accordion2">
-		<div class="accordion-group">
-			<div class="accordion-heading">
-			  <a  data-toggle="collapse" data-parent="#accordion2" href="#collapseOne" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Add poll</a>
-			</div>
-			<div id="collapseOne" class="accordion-body collapse in">
-				<div class="accordion-inner">
-					Anim pariatur cliche. Minim qui you in1.com probably haven't heard of them et cardigan trust fund culpa biodiesel.
-				</div>
-			</div>
-		</div>
-		<div class="accordion-group">
-			<div class="accordion-heading">
-	          <a href="#" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-heart"></span> Yours polls</a>
-				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-					Collapsible Group Item #2
-				</a>
-			</div>
-			<div id="collapseTwo" class="accordion-body collapse">
-				<div class="accordion-inner">
-					Anim pariatur cliche...
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="jumbotron">
-				<h2>
-					Hello, world!
-				</h2>
-				<p>
-					This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
-				</p>
-				<p>
-					<a class="btn btn-sign btn-success btn-large pull-right" ng-show="!$root.auth" ng-click="loginRegPanel=true; form = false;" href="#">Sign In</a>
-					<a class="btn btn-sign btn-warning btn-large pull-right" ng-show="!$root.auth" ng-click="loginRegPanel=true; form = true;" href="#">Sign Up</a>
-					<a class="btn btn-sign btn-danger btn-large pull-right" ng-show="$root.auth" ng-click="logout(); loginRegPanel=false;" href="#">Logout</a>
-				</p>
-			</div>
-
-			<div id="socialLoginPanel" ng-init="loginRegPanel=false" ng-show="loginRegPanel && !$root.auth">
-				<div class="container">
-					<hr>
-					<h2 class="text-center" ng-click="loginRegPanel=false"><span class="glyphicon glyphicon-chevron-up"></span></h2>
-					<div class="row" ng-init="form=true">
-						<div class="col-sm-8">
-						<form id="login-form" ng-show="!form" method="post" role="form" style="display: block;">
-											<div class="form-group">
-												<input type="text" ng-model="loginForm.username" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
-											</div>
-											<div class="form-group">
-												<input type="password" ng-model="loginForm.password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-											</div>
-											<!-- <div class="form-group text-center">
-												<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-												<label for="remember"> Remember Me</label>
-											</div> -->
-											<span>{{ loginForm }}</span>
-											<div class="form-group">
-												<div class="row">
-													<div class="col-sm-6 col-sm-offset-3">
-														<input type="submit" ng-click="login(loginForm.username, loginForm.password)" tabindex="4" class="form-control btn btn-login" value="Log In">
-													</div>
-												</div>
-											</div>
-											<!-- <div class="form-group">
-												<div class="row">
-													<div class="col-lg-12">
-														<div class="text-center">
-															<a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
-														</div>
-													</div>
-												</div>
-											</div> -->
-										</form>
-							<form id="register-form" ng-show="form" action="" method="post" role="form">
-																<div class="form-group">
-																	<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
-																</div>
-																<div class="form-group">
-																	<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
-																</div>
-																<div class="form-group">
-																	<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-																</div>
-																<div class="form-group">
-																	<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
-																</div>
-																<div class="form-group">
-																	<div class="row">
-																		<div class="col-sm-6 col-sm-offset-3">
-																			<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register btn-success" value="Register Now">
-																		</div>
-																	</div>
-																</div>
-															</form>
+		<div class="container">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="jumbotron">
+							<h2>
+							Hello, world!
+							</h2>
+							<p>
+								This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+							</p>
+							<p>
+								<a class="btn btn-sign btn-success btn-large pull-right" ng-show="!$root.auth" ng-click="loginRegPanel=true; form = false;" href="#">Sign In</a>
+								<a class="btn btn-sign btn-warning btn-large pull-right" ng-show="!$root.auth" ng-click="loginRegPanel=true; form = true;" href="#">Sign Up</a>
+								<a class="btn btn-sign btn-danger btn-large pull-right" ng-show="$root.auth" ng-click="logout(); loginRegPanel=false;" href="#">Logout</a>
+							</p>
 						</div>
-					  <div class="col-sm-4 social-buttons">
-					  	<a class="btn btn-block btn-social btn-facebook">
-					  	            <span class="fa fa-facebook"></span> Sign in with Facebook
-					  	          </a>
-					  	<a class="btn btn-block btn-social btn-github">
-					  	            <span class="fa fa-github"></span> Sign in with GitHub
-					  	          </a>
-					  	<a class="btn btn-block btn-social btn-google">
-					  	            <span class="fa fa-google"></span> Sign in with Google
-					  	          </a>
-					  </div>
+						<!-- <div class="panel panel-default" ng-show="$root.auth"> -->
+						<!-- SECTION USER ACTION PANEL -->
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="accordion" id="actionPanel">
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="accordion-group">
+												<div class="accordion-heading">
+													<a  data-toggle="collapse" data-parent="#actionPanel" href="#collapseOne" class="btn btn-block btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Add poll</a>
+												</div>
+												<div id="collapseOne" class="accordion-body collapse">
+													<div class="accordion-inner">
+														<!-- SECTION USER POST POLL FORM AKA ADD NEW ONE  -->
+														<hr>
+														<form role="form">
+															<div class="form-group">
+																<label for="pollTitle">
+																	Poll Title
+																</label>
+																<input class="form-control" id="pollTitle" />
+																<hr>
+																<label for="selGroup">Select category</label>
+																<select class="form-control" id="selGroup">
+																	<option ng-repeat="data in parsedData" ng-bind="data.category"></option>
+																</select>
+															</div>
+															<div class="form-group" ng-init="options = ['Option...']">
+																<label for="pollOptions">
+																	Options:
+																</label>
+																<a class="btn btn-sm btn-danger" ng-click="options.push('Option...');"><span class="glyphicon glyphicon-plus-sign"></span> Add option</a>
+																<hr>
+																<div style="position: relative" ng-repeat="option in options">
+																	<input class="form-control" placeholder="{{options[$index]}}" />
+																	<span id="option-clear" class="glyphicon glyphicon-remove" ng-click="options.splice($index,1)" ></span>
+																</div>
+															</div>
+															<button type="submit" class="btn btn-default">
+															Submit
+															</button>
+														</form>
+														<!-- SECTION USER POST POLL FORM AKA ADD NEW ONE  -->
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="accordion-group">
+												<div class="accordion-heading">
+													<a class="btn btn-block btn-sm btn-success" data-toggle="collapse" data-parent="#actionPanel" href="#collapseTwo"><span class="glyphicon glyphicon-heart"></span> Yours polls</a>
+												</div>
+												<div id="collapseTwo" class="accordion-body collapse">
+													<div class="accordion-inner">
+														Anim pariatur cliche...
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- SECTION USER ACTION PANEL -->
+						<div ng-include="'./public/templates/entryPanel.html'">
+						</div>
 					</div>
 				</div>
+				<div ng-include="'./public/templates/pollsSection.html'">
+				</div>
 			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4" ng-repeat="data in parsedData">
-			<h3>
-				{{ data.category }}
-			</h3>
-			<div class="panel-group" id="accordion{{ $index }}">
-			  <div class="panel panel-default" ng-repeat="poll in data.polls">
-			    <div class="panel-heading">
-			      <h4 class="panel-title">
-			        <a data-toggle="collapse" href="#collapse{{ $parent.$index + '' + $index }}">{{ poll.question }}</a>
-			      </h4>
-			    </div>
-			    <div id="collapse{{ $parent.$index + '' + $index }}" class="panel-collapse collapse">
-			      <div class="panel-body" ng-repeat="choice in poll.choices">{{ choice.text }} total Votes {{ choice.votes.length }}</div>
-			    </div>
-			  </div>
-			</div>
-			<ul class="pagination">
-				<li>
-					<a href="#">Prev</a>
-				</li>
-				<li>
-					<a href="#">1</a>
-				</li>
-				<li>
-					<a href="#">2</a>
-				</li>
-				<li>
-					<a href="#">3</a>
-				</li>
-				<li>
-					<a href="#">4</a>
-				</li>
-				<li>
-					<a href="#">5</a>
-				</li>
-				<li>
-					<a href="#">Next</a>
-				</li>
-			</ul>
-			</div>
-	</div>
-</div>
-</body>
-<script src="//code.jquery.com/jquery.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
-<script src="./public/core.js"></script>
-<script src="./public/services/auth.service.js"></script>
-
-</html>
+		</body>
+		<script src="//code.jquery.com/jquery.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+		<script src="./public/core.js"></script>
+		<script src="./public/services/auth.service.js"></script>
+	</html>
