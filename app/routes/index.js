@@ -33,22 +33,55 @@ module.exports = function (app) {
 	router.route('/polls')
 		.get(function (req, res) {
 			Poll.getPolls(function (err, polls) {
-				if (err) logger.warn(err)
-
+				if (err) return res.send({
+					success: false,
+					msg: 'Database error'
+				});
 
 				return res.json({
-					authencitated: (req.decoded !== false),
+					authencitated: req.decoded !== false,
 					polls
 				});
 
 			})
 		});
 	// router.post('/poll')
+	router.route('/addPoll')
+		.post(function (req, res) {
+
+			if (!req.decoded) {
+				return res.status(403).send({
+					success: false,
+					msg: 'Unauthenticated'
+				})
+			}
+
+			if (!req.body.pollData) {
+				return res.status(403).send({
+					success: false,
+					msg: 'Please pass pollData'
+				})
+			}
+
+			Poll.addPoll(req.body.pollData, (err, doc) => {
+				if (err) return res.send({
+					success: false,
+					msg: 'Database error'
+				});
+
+				return res.send({
+					success: true,
+					msg: 'Poll ' + doc.question + ' saved successfully'
+				})
+			})
+
+		});
 
 	router.route('/userStats')
 		.get(function (req, res) {
 			res.sendFile(path + '/public/index4.html')
 		});
+
 
 	// router.route('/userStats')
 	// 	.get(passport.authenticate('jwt', {session: false}), userStats);
