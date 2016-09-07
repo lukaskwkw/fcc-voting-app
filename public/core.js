@@ -7,7 +7,7 @@
 
 angular.module('votingApp', ['ngStorage']);
 
-function mainController ($localStorage, $rootScope, $scope, $http, authService) {
+function mainController ($localStorage, $rootScope, $scope, $http, authService, pollService) {
 	$scope.formData = {};
 	$scope.loginForm = {};
 
@@ -22,39 +22,37 @@ function mainController ($localStorage, $rootScope, $scope, $http, authService) 
 	$scope.login = authService.login;
 	$scope.logout = authService.logout;
 
+	pollService.getPolls();
 
-		// when landing on the page, get all todos and show them
-	$http.get('/api/polls')
-		.success(function (data) {
+	$scope.options = [ {opt: ''} ];
 
-			var parsedData = (function (polls) {
-				var categories = [];
+	$scope.cat = $scope.options[0];
 
-				polls.forEach(function (elem) {
-					if (categories.indexOf(elem.category) === -1)
-						categories.push(elem.category);
-				});
+	$scope.addPoll = function () {
+		var pollData = {
+			question: $scope.question,
+			category: $scope.cat.category,
+			choices: $scope.options.map(function (elem) {
 
-				return categories.map(function (categoryElem) {
-					var filtredData = polls.filter(function (dataElem) {
-						return dataElem.category === categoryElem;
-					})
+				return {
+					text: elem,
+					votes: []
+				}
+			})
 
-					return {
-						category: categoryElem,
-						polls: filtredData
-					}
+		}
+		console.log(pollData);
 
-				})
-			})(data.polls);
+		pollService.addPoll(pollData);
+	}
 
-			console.log(data.authencitated);
-			$scope.parsedData = parsedData;
-			console.log(parsedData);
-		})
-		.error(function (data) {
-			console.log('Error: ' + data);
-		});
+	$scope.$on('polls', function (event, args) {
+		if (!args.success)
+			return console.log('Failed to retrive polls from database');
+
+		$scope.parsedData = args.parsedData;
+
+	})
 
 
 }

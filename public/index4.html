@@ -42,30 +42,45 @@
 													<div class="accordion-inner">
 														<!-- SECTION USER POST POLL FORM AKA ADD NEW ONE  -->
 														<hr>
+
+<!-- 	var pollData = {
+		question: 'Does more automation solve major human problems like hunger, poverty?',
+		category: 'Live',
+		choices: [{
+			text: 'Yes it does',
+			votes: []
+		},
+		{
+			text: 'No because people will never use it for solving those problems',
+			votes: []
+		}]
+	} -->
+
 														<form role="form">
 															<div class="form-group">
 																<label for="pollTitle">
 																	Poll Title
 																</label>
-																<input class="form-control" id="pollTitle" />
+																<input class="form-control" ng-model="question" id="pollTitle" />
 																<hr>
 																<label for="selGroup">Select category</label>
-																<select class="form-control" id="selGroup">
-																	<option ng-repeat="data in parsedData" ng-bind="data.category"></option>
+																<select class="form-control" ng-model="cat" ng-init="cat = cat[0]" ng-options="data.category for data in parsedData" id="selGroup">
+																	<!-- <option ng-repeat="data in parsedData"  ng-bind="data.category"></option> -->
 																</select>
 															</div>
-															<div class="form-group" ng-init="options = ['Option...']">
+															<div class="form-group">
 																<label for="pollOptions">
 																	Options:
 																</label>
-																<a class="btn btn-xs btn-primary" ng-click="options.push('Option...');"><span class="glyphicon glyphicon-plus-sign"></span>Add option</a>
+																<a class="btn btn-xs btn-primary" ng-click="options.push({ opt : ''});"><span class="glyphicon glyphicon-plus-sign"></span>Add option</a>
 																<hr>
-																<div style="position: relative" ng-repeat="option in options">
-																	<input class="form-control" placeholder="{{options[$index]}}" />
+																<div class="poll-option" ng-repeat="option in options">
+																<input class="form-control" ng-model="option.opt"/>
+																	<!-- <input class="form-control" ng-model="options[$index]"  /> -->
 																	<span id="option-clear" class="glyphicon glyphicon-remove" ng-click="options.splice($index,1)" ></span>
 																</div>
 															</div>
-															<button type="submit" class="btn btn-default">
+															<button type="submit" ng-click="addPoll()" class="btn btn-default">
 															Submit
 															</button>
 														</form>
@@ -105,4 +120,5 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
 		<script src="./public/core.js"></script>
 		<script src="./public/services/auth.service.js"></script>
+		<script src="./public/services/poll.service.js"></script>
 	</html>

@@ -55,6 +55,11 @@ img {
 
 
 /* Poll Form */
+.poll-option {
+	position: relative;
+	margin-top: 1em;
+}
+
 #option-clear {
 	position: absolute;
 	color: #ccc;

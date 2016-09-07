@@ -73,7 +73,7 @@ var token = null;
 			.end((err, res) => {
 				if (err) logger.error(err);
 
-				res.should.have.status(403);
+				res.should.have.status(401);
 				done();
 			})
 	});

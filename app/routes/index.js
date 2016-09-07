@@ -50,14 +50,14 @@ module.exports = function (app) {
 		.post(function (req, res) {
 
 			if (!req.decoded) {
-				return res.status(403).send({
+				return res.status(401).send({
 					success: false,
 					msg: 'Unauthenticated'
 				})
 			}
 
 			if (!req.body.pollData) {
-				return res.status(403).send({
+				return res.send({
 					success: false,
 					msg: 'Please pass pollData'
 				})
