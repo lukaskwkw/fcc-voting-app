@@ -35,7 +35,7 @@ function mainController ($localStorage, $rootScope, $scope, $http, authService, 
 			choices: $scope.options.map(function (elem) {
 
 				return {
-					text: elem,
+					text: elem.opt,
 					votes: []
 				}
 			})

@@ -13,8 +13,10 @@ angular.module('votingApp')
 			var req = {
 				method: 'POST',
 				url: 'http://localhost:3000/api/addPoll',
-				data: pollData
+				data: {pollData}
 			}
+
+			console.log(req);
 
 			$http(req).then((response) => {
 				console.log(response.data.msg);
