@@ -7,7 +7,7 @@
 
 angular.module('votingApp', ['ngStorage']);
 
-function mainController ($localStorage, $rootScope, $scope, $http, authService, pollService) {
+function mainController ($localStorage, $rootScope, $scope, $http, AuthService, pollService) {
 	$scope.formData = {};
 	$scope.loginForm = {};
 
@@ -19,8 +19,8 @@ function mainController ($localStorage, $rootScope, $scope, $http, authService, 
 		$rootScope.auth = true;
 	}
 
-	$scope.login = authService.login;
-	$scope.logout = authService.logout;
+	$scope.login = AuthService.login;
+	$scope.logout = AuthService.logout;
 
 	pollService.getPolls();
 

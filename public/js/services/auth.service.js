@@ -6,14 +6,10 @@
 
 (function () {
 
+'use strict';
+
 angular.module('votingApp')
-	.factory('authService', function ($rootScope, $http, $localStorage) {
-
-		// $scope.auth = false;
-
-		// if ($localStorage.loggedUser)
-		// 	$scope.auth = true;
-		// var auth = false;
+	.factory('AuthService', function ($rootScope, $http, $localStorage) {
 
 		function login (email, password) {
 			var req = {

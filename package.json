@@ -44,6 +44,7 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-jasmine": "^1.0.2",
     "mocha": "^3.0.2",
+    "ng-storage": "^0.3.2",
     "nodemon": "^1.10.2",
     "should": "^11.1.0"
   }

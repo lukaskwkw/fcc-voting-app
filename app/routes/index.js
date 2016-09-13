@@ -7,11 +7,11 @@ var path = process.cwd();
 var signup = require('../controllers/signupHandler.server.js');
 var auth = require('../controllers/authHandler.server.js');
 var middlewareAuth = require('../controllers/middlewareAuth.server.js');
+var PollController = require('../controllers/pollHandler.server.js');
 // var passport = require('passport');
 
 var express = require('express');
 
-var Poll = require('../models/poll.js');
 
 module.exports = function (app) {
 
@@ -31,61 +31,15 @@ module.exports = function (app) {
 	router.use(middlewareAuth);
 
 	router.route('/polls')
-		.get(function (req, res) {
-			Poll.getPolls(function (err, polls) {
-				if (err) return res.send({
-					success: false,
-					msg: 'Database error'
-				});
+		.get(PollController.getPolls);
 
-				return res.json({
-					authencitated: req.decoded !== false,
-					polls
-				});
-
-			})
-		});
-	// router.post('/poll')
 	router.route('/addPoll')
-		.post(function (req, res) {
-
-			if (!req.decoded) {
-				return res.status(401).send({
-					success: false,
-					msg: 'Unauthenticated'
-				})
-			}
-
-			if (!req.body.pollData) {
-				return res.send({
-					success: false,
-					msg: 'Please pass pollData'
-				})
-			}
-
-			Poll.addPoll(req.body.pollData, (err, doc) => {
-				if (err) return res.send({
-					success: false,
-					msg: 'Database error'
-				});
-
-				return res.send({
-					success: true,
-					msg: 'Poll ' + doc.question + ' saved successfully'
-				})
-			})
-
-		});
+		.post(PollController.addPoll);
 
 	router.route('/userStats')
 		.get(function (req, res) {
-			res.sendFile(path + '/public/index4.html')
+			res.sendFile(path + '/public/index.html')
 		});
-
-
-	// router.route('/userStats')
-	// 	.get(passport.authenticate('jwt', {session: false}), userStats);
-
 
 	app.use('/api', router)
 

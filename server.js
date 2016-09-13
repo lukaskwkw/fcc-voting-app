@@ -33,7 +33,7 @@ app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.get('/', function (req, res) {
-	res.sendFile(path + '/public/index4.html');
+	res.sendFile(path + '/public/index.html');
 })
 
 routes(app);

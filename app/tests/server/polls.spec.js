@@ -33,6 +33,8 @@ describe('Polls', function () {
 
 var token = null;
 
+
+// Register and authenticate test user
 	before(function (done) {
 		User.register('polls_maniek@gmail.com', 'polltestpolltest', function (err) {
 			if (err) {
@@ -65,7 +67,7 @@ var token = null;
 		})
 	});
 
-	it('given poll data when token is NOT provided then should return unauthicated message', function (done) {
+	it('given poll data when token is NOT provided then should return message of unauthicated', function (done) {
 		chai.request(server)
 			.post('/api/addPoll')
 			.send(pollData)
