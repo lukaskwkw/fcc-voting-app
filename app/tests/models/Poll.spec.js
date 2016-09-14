@@ -14,12 +14,12 @@ var mockgoose = require('mockgoose');
 
 var PollData = require('../fixtures/dataForPollSpec.js')
 
-var DB_USER, DB_PASS, DB_NAME;
+var DB_URI = process.env.DB_URI;
 
-[DB_USER, DB_PASS, DB_NAME] = [process.env.DB_USER, process.env.DB_PASS, process.env.DB_NAME];
+
 
 mockgoose(mongoose).then(function (err) {
-	mongoose.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds037005.mlab.com:37005/' + DB_NAME);
+	mongoose.connect(DB_URI);
 })
 
 var id = null;

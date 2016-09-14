@@ -13,7 +13,6 @@ var express = require('express');
 
 module.exports = function (app) {
 
-
 	var router = express.Router();
 
 	router.route('/signup')
@@ -34,6 +33,7 @@ module.exports = function (app) {
 	router.route('/addPoll')
 		.post(PollController.addPoll);
 
+//TO-DO
 	router.route('/userStats')
 		.get(function (req, res) {
 			res.sendFile(path + '/public/index.html')

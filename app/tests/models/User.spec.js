@@ -11,15 +11,13 @@ var mockgoose = require('mockgoose');
 
 var User = require('../../models/User.js');
 
-var DB_USER, DB_PASS, DB_NAME;
-
-[DB_USER, DB_PASS, DB_NAME] = [process.env.DB_USER, process.env.DB_PASS, process.env.DB_NAME];
+var DB_URI = process.env.DB_URI;
 
 //	in case of change in future
 process.env.KEY = '$FAsx9!@5Az3#5_=_23dd';
 
 mockgoose(mongoose).then(function (err) {
-	mongoose.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds037005.mlab.com:37005/' + DB_NAME);
+	mongoose.connect(DB_URI);
 })
 
 describe('Users', function () {

@@ -13,28 +13,18 @@ const should = chai.should();
 
 const Poll = require('../../models/poll.js');
 const User = require('../../models/User.js');
+const PollData = require('../fixtures/dataForPollSpec.js')
 
 chai.use(chaiHttp);
 
 describe('Polls', function () {
 
-	var pollData = {
-		question: 'Does more automation solve major human problems like hunger, poverty?',
-		category: 'Live',
-		choices: [{
-			text: 'Yes it does',
-			votes: []
-		},
-		{
-			text: 'No because people will never use it for solving those problems',
-			votes: []
-		}]
-	}
+	var pollData = PollData.data3;
 
-var token = null;
+	var token = null;
 
 
-// Register and authenticate test user
+	// Register and authenticate test user
 	before(function (done) {
 		User.register('polls_maniek@gmail.com', 'polltestpolltest', function (err) {
 			if (err) {
@@ -58,7 +48,7 @@ var token = null;
 					token = res.body.token;
 					done();
 				})
-	});
+		});
 	})
 
 	after(function (done) {
