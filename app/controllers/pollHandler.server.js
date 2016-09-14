@@ -17,34 +17,35 @@ function addPoll (req, res) {
 		})
 	}
 
-	Poll.addPoll(req.body.pollData, (err, doc) => {
-		if (err) return res.send({
-			success: false,
-			msg: err.message
-		});
-
-		return res.send({
-			success: true,
-			msg: 'Poll ' + doc.question + ' saved successfully'
+	Poll.addPoll(req.body.pollData)
+		.then((doc) => {
+			return res.send({
+				success: true,
+				msg: 'Poll ' + doc.question + ' saved successfully'
+			})
 		})
-	})
-
+		.catch((err) => {
+			return res.send({
+				success: false,
+				msg: err.message
+			});
+		})
 
 }
 
 function getPolls (req, res) {
-	Poll.getPolls(function (err, polls) {
-		if (err) return res.send({
-			success: false,
-			msg: err.message
-		});
-
-		return res.json({
-			authencitated: req.decoded !== false,
-			polls
-		});
-
-	})
+	Poll.getPolls().then((polls) => {
+			return res.json({
+				authencitated: req.decoded !== false,
+				polls
+			});
+		})
+		.catch((err) => {
+			return res.send({
+				success: false,
+				msg: err.message
+			});
+		})
 
 }
 

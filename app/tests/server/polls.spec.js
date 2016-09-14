@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 
 var log4js = require('log4js');
 var logger = log4js.getLogger('spec polls');
@@ -17,7 +18,7 @@ const PollData = require('../fixtures/dataForPollSpec.js')
 
 chai.use(chaiHttp);
 
-describe('Polls', function () {
+describe('Polls Server', function () {
 
 	var pollData = PollData[2];
 
@@ -26,11 +27,7 @@ describe('Polls', function () {
 
 	// Register and authenticate test user
 	before(function (done) {
-		User.register('polls_maniek@gmail.com', 'polltestpolltest', function (err) {
-			if (err) {
-				throw err;
-			}
-
+		User.register('polls_maniek@gmail.com', 'polltestpolltest').then((doc) => {
 			var user = {
 				email: 'polls_maniek@gmail.com',
 				password: 'polltestpolltest'

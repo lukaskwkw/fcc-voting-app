@@ -1,4 +1,4 @@
-# fcc-voting-App
+# fcc-voting-AppDo
 
 ## Setting up the development environment
 
@@ -6,7 +6,7 @@
 2.  Run `npm install` in project directory
 3.  Place your mongoDB uri connection in .env file (create one) as `DB_URI`
     i.e. `DB_URI=mongodb://myUserName:myPassword@ds037005.mlab.com:37005/dbName`
-3.b. Place keys: `KEY` for passwords encryption and `secret` for JWT authentication in .env file
+3. **b).**. Place keys: `KEY` for passwords encryption and `secret` for JWT authentication in .env file
     i.e.
     `KEY=12jfio2Sjv&#22`
     `secret=xx31iodEr42`

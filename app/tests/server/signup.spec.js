@@ -14,10 +14,7 @@ describe('Signup', function () {
 
 	before(function (done) {
 		User.model.remove({}, function () {
-			User.register('test1@o2.pl', 'haslo111', function (err) {
-				if (err) {
-					throw err
-				}
+			User.register('test1@o2.pl', 'haslo111').then((doc) => {
 				done();
 			})
 		})

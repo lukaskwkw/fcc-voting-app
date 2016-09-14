@@ -22,7 +22,7 @@ var DB_URI = process.env.DB_URI;
 if (require.main === module)
 	mongoose.connect(DB_URI);
 else {
-	//for testing purposes
+	//	for testing purposes
 	port = 5000;
 	mockgoose(mongoose).then(function (err) {
 		mongoose.connect(DB_URI);
@@ -42,5 +42,5 @@ app.listen(port, function () {
 	logger.debug('Node.js listening on port ' + port + '...');
 });
 
-//for testing purposes
+//	for testing purposes
 module.exports = app;

@@ -17,11 +17,7 @@ var token = '';
 describe('Authenticate', function () {
 
 	before(function (done) {
-		User.register('tomekszybkanoga4@gmail.com', 'szklanebuty17', function (err) {
-			if (err) {
-				throw err;
-			}
-
+		User.register('tomekszybkanoga4@gmail.com', 'szklanebuty17').then((doc) => {
 			var user = {
 				email: 'tomekszybkanoga4@gmail.com',
 				password: 'szklanebuty17'

@@ -33,7 +33,7 @@ module.exports = function (app) {
 	router.route('/addPoll')
 		.post(PollController.addPoll);
 
-//TO-DO
+// TO-DO
 	router.route('/userStats')
 		.get(function (req, res) {
 			res.sendFile(path + '/public/index.html')

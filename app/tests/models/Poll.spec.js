@@ -10,6 +10,8 @@ var log4js = require('log4js');
 var logger = log4js.getLogger('Poll-spec');
 
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+
 var mockgoose = require('mockgoose');
 
 var PollData = require('../fixtures/dataForPollSpec.js')
@@ -26,12 +28,11 @@ describe('Poll', function () {
 
 	before(function (done) {
 		Poll.model.remove({}, function () {
-			Poll.addPoll(PollData[1], (err, doc) => {
-				if (err) throw err
+			Poll.addPoll(PollData[1])
+				.then((doc) => {
 				id = doc._id
-				Poll.addPoll(PollData[0], () => {
-					done();
-				});
+				Poll.addPoll(PollData[0])
+					.then(() => done());
 			});
 		})
 	});
@@ -44,39 +45,27 @@ describe('Poll', function () {
 
 	//	This test have to be 1st (due to more Polls insertion after this one)
 	it('given a call to the database when invoking getPolls function then should get all polls from db', function (done) {
-		Poll.getPolls((err, polls) => {
-			if (err) { throw err }
 
-			// logger.info(JSON.stringify(polls))
-
+		Poll.getPolls().then((polls) => {
 			polls.length.should.equal(2);
-
 			done();
-		})
+		});
 	});
 
 	it('given poll data when invoking addPoll function then should add poll to the database', function (done) {
 
-		Poll.addPoll(PollData[2], (err, doc) => {
-			if (err) throw err;
-
-			// logger.info(doc);
-
+		Poll.addPoll(PollData[2]).then((doc) => {
 			doc.should.have.property('question').equal('Do you run polls on your sites sidebar?');
-
 			done();
 		});
 
 	});
 
 	it('given poll with correct id when invoking remove function then shuld remove poll', function (done) {
-		Poll.deletePoll(id, function (err, doc) {
-
+		Poll.deletePoll(id).then((doc) => {
 			doc.result.should.have.property('ok').equal(1);
 			doc.result.should.have.property('n').equal(1);
-
-			Poll.getPolls((err, polls) => {
-
+			Poll.getPolls().then((polls) => {
 				//	after prev test we had 4 now it's should be 2
 				polls.length.should.equal(2);
 				done();
@@ -85,13 +74,12 @@ describe('Poll', function () {
 	});
 
 	it('given poll with incorrect id when invoking remove function then shuldn\'t do anything', function (done) {
-		Poll.deletePoll('123452122311', function (err, doc) {
+		Poll.deletePoll('123452122311').then((doc) => {
 
 			doc.result.should.have.property('ok').equal(1);
 			doc.result.should.have.property('n').equal(0);
 
-			Poll.getPolls((err, polls) => {
-
+			Poll.getPolls().then((polls) => {
 				//	after prev test (remove 1) we had 4 now it's should be 2
 				polls.length.should.equal(2);
 				done();

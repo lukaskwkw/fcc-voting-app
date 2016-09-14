@@ -1,6 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+
 var userSchema = require('./fixtures/schemas/userSchema.js');
 
 var log4js = require('log4js');
@@ -12,59 +14,39 @@ var User = (function () {
 
   var _model = mongoose.model('users', userSchema);
 
-  var _findByEmail = function (email, success, fail) {
-    _model.findOne({email}, function (err, doc) {
-      if (err) {
-        fail(err);
-      } else {
-        success(doc)
-      }
-    })
+  var _findByEmail = (email) => {
+    return _model.findOne({email}).exec();
   }
 
-  var _login = function (email, password, callback) {
-    _findByEmail(email, function (doc) {
-      var error = {};
-      if (!doc) {
-        logger.warn('user ' + email + ' not found');
-        error = {errmsg: 'user ' + email + ' not found'};
+  var _login = (email, password) => {
+    return _findByEmail(email)
+      .then((doc) => {
+        var error = {};
+        if (!doc) {
+          error = {errmsg: 'user ' + email + ' not found'};
+          logger.warn(error);
 
-        return callback(error, null);
-      }
+          return Promise.reject(error);
+        }
 
-      if (!doc.comparePasswords(doc.encryptedPassword, password)) {
-        logger.warn('Password mismatching ');
-        error = {errmsg: 'Password mismatching '};
+        if (!doc.comparePasswords(doc.encryptedPassword, password)) {
+          error = {errmsg: 'Password mismatching'};
+          logger.warn(error);
 
-        return callback(error, null);
-      }
+          return Promise.reject(error);
+        }
 
-      return callback(null, doc);
-    }, function (err) {
-      if (err) logger.error(err);
-
-      return callback(err, null);
-    })
+        return Promise.resolve(doc);
+      })
   }
 
-  var _register = function (email, password, callback) {
-        var user = new _model({
-          email,
-          encryptedPassword: password
-        });
+  var _register = (email, password) => {
+    var user = new _model({
+      email,
+      encryptedPassword: password
+    });
 
-        user.save(function (error, document) {
-          if (error) {
-            logger.warn(error.errmsg);
-
-            return callback(error, null);
-          }
-
-          logger.debug('User ' + document.email + ' Saved Successfully');
-
-          return callback(null, document);
-        })
-
+   return user.save();
   }
 
   return {

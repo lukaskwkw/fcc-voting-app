@@ -22,33 +22,25 @@ var middlewareAuth = function (req, res, next) {
 	var token = getToken(req.headers);
 	if (token) {
 		var decoded = jwt.decode(token, process.env.secret);
-		User.findByEmail(decoded.email, function (doc) {
-			if (!doc) {
-				return res.status(403).send({
-					success: false,
-					msg: 'Authentication failed. User not found.'
-				});
-			}
+		User.findByEmail(decoded.email)
+			.then((doc) => {
+				if (!doc) {
+					return res.status(403).send({
+						success: false,
+						msg: 'Authentication failed. User not found.'
+					});
+				}
 
-			req.decoded = decoded;
+				req.decoded = decoded;
 
-			return next()
+				return next()
 
-		}, function (err) {
-			if (err) {
+			})
+			.catch((err) => {
 				return logger.error(err);
-			}
-		})
-	}
-	else {
-
-		// logger.info('cokolwiek');
+			})
+	} else {
 		req.decoded = false;
-
-		// res.status(403).send({
-		// 		success: false,
-		// 		msg: 'No token provided.'
-			// })
 		return next();
 	}
 }
