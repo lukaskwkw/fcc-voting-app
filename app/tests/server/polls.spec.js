@@ -71,9 +71,8 @@ var token = null;
 		chai.request(server)
 			.post('/api/addPoll')
 			.send(pollData)
-			.set('authorization', token)
 			.end((err, res) => {
-				if (err) logger.error(err);
+				// if (err) logger.error(err);
 
 				res.should.have.status(401);
 				done();

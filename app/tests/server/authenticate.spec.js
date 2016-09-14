@@ -39,11 +39,11 @@ describe('Authenticate', function () {
 		})
 	});
 
-	// after(function (done) {
-	// 	User.model.remove({}, function () {
-	// 		done();
-	// 	})
-	// });
+	after(function (done) {
+		User.model.remove({}, function () {
+			done();
+		})
+	});
 
 	it('given login and password when sending to the server then should retrive a token for the session', function (done) {
 		var user = {

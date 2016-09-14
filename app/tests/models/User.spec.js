@@ -7,6 +7,8 @@ var assert = chai.assert;
 var log4js = require('log4js');
 var logger = log4js.getLogger('spec');
 var mongoose = require('mongoose');
+var mockgoose = require('mockgoose');
+
 var User = require('../../models/User.js');
 
 var DB_USER, DB_PASS, DB_NAME;
@@ -16,7 +18,9 @@ var DB_USER, DB_PASS, DB_NAME;
 //	in case of change in future
 process.env.KEY = '$FAsx9!@5Az3#5_=_23dd';
 
-mongoose.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds037005.mlab.com:37005/' + DB_NAME);
+mockgoose(mongoose).then(function (err) {
+	mongoose.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds037005.mlab.com:37005/' + DB_NAME);
+})
 
 describe('Users', function () {
 	before(function (done) {

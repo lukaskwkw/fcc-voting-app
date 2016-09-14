@@ -3,12 +3,10 @@ var log4js = require('log4js');
 var logger = log4js.getLogger('index-routes');
 
 var path = process.cwd();
-// var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var signup = require('../controllers/signupHandler.server.js');
 var auth = require('../controllers/authHandler.server.js');
 var middlewareAuth = require('../controllers/middlewareAuth.server.js');
 var PollController = require('../controllers/pollHandler.server.js');
-// var passport = require('passport');
 
 var express = require('express');
 

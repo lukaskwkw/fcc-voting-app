@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/johnstonbl01/clementinejs-angular"
   },
+  "scripts": {
+    "test": "./node_modules/.bin/_mocha app/tests --recursive"
+  },
   "homepage": "http://johnstonbl01.github.io/clementinejs/",
   "bugs": "https://github.com/johnstonbl01/clementinejs-angular/issues",
   "keywords": [
@@ -44,6 +47,7 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-jasmine": "^1.0.2",
     "mocha": "^3.0.2",
+    "mockgoose": "^6.0.6",
     "ng-storage": "^0.3.2",
     "nodemon": "^1.10.2",
     "should": "^11.1.0"

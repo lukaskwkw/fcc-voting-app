@@ -8,9 +8,13 @@ describe('Auth factory', function () {
 		AuthService = _AuthService_;
 	}));
 
-	it('dummy test 2+2', function () {
+	it('AuthService Injection dummy test', function () {
 		expect(AuthService).toBeDefined();
 		expect(AuthService.login).toBeDefined();
 		expect(AuthService.logout).toBeDefined();
+	});
+
+	it('given correct email and password when invoking login function then should', function(done) {
+
 	});
 });

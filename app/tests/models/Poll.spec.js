@@ -10,13 +10,17 @@ var log4js = require('log4js');
 var logger = log4js.getLogger('Poll-spec');
 
 var mongoose = require('mongoose');
-var PollData = require('./fixtures/dataForPollSpec.js')
+var mockgoose = require('mockgoose');
+
+var PollData = require('../fixtures/dataForPollSpec.js')
 
 var DB_USER, DB_PASS, DB_NAME;
 
 [DB_USER, DB_PASS, DB_NAME] = [process.env.DB_USER, process.env.DB_PASS, process.env.DB_NAME];
 
-mongoose.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds037005.mlab.com:37005/' + DB_NAME);
+mockgoose(mongoose).then(function (err) {
+	mongoose.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds037005.mlab.com:37005/' + DB_NAME);
+})
 
 var id = null;
 
@@ -55,12 +59,12 @@ describe('Poll', function () {
 
 	it('given poll data when invoking addPoll function then should add poll to the database', function (done) {
 
-		Poll.addPoll(PollData.data2, (err, doc) => {
+		Poll.addPoll(PollData.data3, (err, doc) => {
 			if (err) throw err;
 
 			// logger.info(doc);
 
-			doc.should.have.property('question').equal('Test question lorem ipsum');
+			doc.should.have.property('question').equal('Do you run polls on your sites sidebar?');
 
 			done();
 		});
@@ -75,7 +79,7 @@ describe('Poll', function () {
 
 			Poll.getPolls((err, polls) => {
 
-				//	after prev test we had 3 now it's should be 2
+				//	after prev test we had 4 now it's should be 2
 				polls.length.should.equal(2);
 				done();
 			})
@@ -90,7 +94,7 @@ describe('Poll', function () {
 
 			Poll.getPolls((err, polls) => {
 
-				//	after prev test we had 3 now it's should be 2
+				//	after prev test (remove 1) we had 4 now it's should be 2
 				polls.length.should.equal(2);
 				done();
 			})
