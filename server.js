@@ -29,8 +29,6 @@ else {
 	})
 }
 
-logger.info(DB_URI)
-
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
 
