@@ -16,8 +16,6 @@ var PollData = require('../fixtures/dataForPollSpec.js')
 
 var DB_URI = process.env.DB_URI;
 
-
-
 mockgoose(mongoose).then(function (err) {
 	mongoose.connect(DB_URI);
 })
@@ -28,10 +26,10 @@ describe('Poll', function () {
 
 	before(function (done) {
 		Poll.model.remove({}, function () {
-			Poll.addPoll(PollData.data2, (err, doc) => {
+			Poll.addPoll(PollData[1], (err, doc) => {
 				if (err) throw err
 				id = doc._id
-				Poll.addPoll(PollData.data1, () => {
+				Poll.addPoll(PollData[0], () => {
 					done();
 				});
 			});
@@ -59,7 +57,7 @@ describe('Poll', function () {
 
 	it('given poll data when invoking addPoll function then should add poll to the database', function (done) {
 
-		Poll.addPoll(PollData.data3, (err, doc) => {
+		Poll.addPoll(PollData[2], (err, doc) => {
 			if (err) throw err;
 
 			// logger.info(doc);

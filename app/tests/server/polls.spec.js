@@ -19,7 +19,7 @@ chai.use(chaiHttp);
 
 describe('Polls', function () {
 
-	var pollData = PollData.data3;
+	var pollData = PollData[2];
 
 	var token = null;
 
