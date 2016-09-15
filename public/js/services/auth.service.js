@@ -14,14 +14,14 @@ angular.module('votingApp')
 		function login (email, password) {
 			var req = {
 				method: 'POST',
-				url: 'http://localhost:3000/api/auth',
+				url: '/api/auth',
 				data: {
 					email,
 					password
 				}
 			}
 
-			$http(req).then((response) => {
+			return $http(req).then((response) => {
 				if (response.data.success) {
 					$rootScope.auth = true;
 					$localStorage.loggedUser = {
@@ -29,8 +29,11 @@ angular.module('votingApp')
 						token: response.data.token
 					}
 					$http.defaults.headers.common.Authorization = response.data.token
+
+					return true;
 				}
-				console.log(response.data);
+
+				return response.data
 			})
 		}
 

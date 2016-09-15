@@ -26,17 +26,17 @@ var User = (function () {
           error = {errmsg: 'user ' + email + ' not found'};
           logger.warn(error);
 
-          return Promise.reject(error);
+          throw error;
         }
 
         if (!doc.comparePasswords(doc.encryptedPassword, password)) {
           error = {errmsg: 'Password mismatching'};
           logger.warn(error);
 
-          return Promise.reject(error);
+          throw error;
         }
 
-        return Promise.resolve(doc);
+        return doc;
       })
   }
 

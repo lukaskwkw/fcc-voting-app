@@ -13,7 +13,8 @@ var User = require('../../models/User.js');
 
 var DB_URI = process.env.DB_URI;
 
-//	in case of change in future
+//	in case where .env could change in a future
+
 process.env.KEY = '$FAsx9!@5Az3#5_=_23dd';
 
 mockgoose(mongoose).then(function (err) {
