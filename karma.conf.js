@@ -19,9 +19,11 @@ module.exports = function (config) {
       'node_modules/angular-mocks/angular-mocks.js',
       'node_modules/ng-storage/ngStorage.js',
       'node_modules/angular-ui-router/release/angular-ui-router.js',
+      './app/tests/fixtures/dataForPollSpec.js',
       'public/js/core.js',
-      'public/js/services/auth.service.js',
-      'public/js/services/auth.spec.js'
+      'public/js/services/*.js'
+      // 'public/js/services/auth.service.js',
+      // 'public/js/services/auth.spec.js'
       // 'public/js/**/*.js',
       // 'public/*'
     ],

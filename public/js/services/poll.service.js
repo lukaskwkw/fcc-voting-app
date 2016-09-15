@@ -12,14 +12,18 @@ angular.module('votingApp')
 		function addPoll (pollData) {
 			var req = {
 				method: 'POST',
-				url: 'http://localhost:3000/api/addPoll',
+				url: '/api/addPoll',
 				data: {pollData}
 			}
 
-			console.log(req);
+			console.log('req:', req);
 
-			$http(req).then((response) => {
-				console.log(response.data.msg);
+			return $http(req).then((response) => {
+				console.log('tsttst', response.data.msg);
+
+				return response.data;
+			}).catch((err) => {
+				console.log('err', JSON.stringify(err, 1, '\t'));
 			})
 		}
 

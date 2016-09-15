@@ -3,16 +3,18 @@ describe('Auth factory', function () {
 	var AuthService;
 	var $httpBackend;
 	var $localStorage;
+	var $http;
 
 	beforeEach(angular.mock.module('votingApp'));
 
-	beforeEach(inject(function (_$localStorage_, _AuthService_, _$httpBackend_) {
+	beforeEach(inject(function (_$http_, _$localStorage_, _AuthService_, _$httpBackend_) {
 		AuthService = _AuthService_;
 		$httpBackend = _$httpBackend_;
+		$http = _$http_;
 		$localStorage = _$localStorage_;
 	}));
 
-	it('AuthService Injection dummy test', function () {
+	it('AuthService Injection test', function () {
 		expect(AuthService).toBeDefined();
 		expect(AuthService.login).toBeDefined();
 		expect(AuthService.logout).toBeDefined();
@@ -30,6 +32,7 @@ describe('Auth factory', function () {
 		AuthService.login('tomek22@poczta.pl', 'tomekpass').then((response)=>{
 			expect($localStorage.loggedUser.email).toEqual('tomek22@poczta.pl');
 			expect($localStorage.loggedUser.token).toEqual('JWT token');
+			expect($http.defaults.headers.common.Authorization).toEqual($localStorage.loggedUser.token);
 			expect(response).toBeTruthy();
 		});
 		$httpBackend.flush();

@@ -1,4 +1,4 @@
-var data = [{
+var DataForPolls = [{
 	category: 'Tech',
 	question: 'What is your favorite digital camera brand?',
 	choices: [{
@@ -49,4 +49,4 @@ var data = [{
 
 }]
 
-module.exports = data;
+module.exports = DataForPolls;
