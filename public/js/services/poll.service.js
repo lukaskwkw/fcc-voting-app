@@ -16,10 +16,8 @@ angular.module('votingApp')
 				data: {pollData}
 			}
 
-			console.log('req:', req);
 
 			return $http(req).then((response) => {
-				console.log('tsttst', response.data.msg);
 
 				return response.data;
 			}).catch((err) => {
@@ -52,12 +50,10 @@ angular.module('votingApp')
 						})
 					})(data.polls);
 
-					console.log(data.authencitated);
 					$rootScope.$broadcast('polls', {
 						success: true,
 						parsedData
 					});
-					console.log(parsedData);
 				})
 				.error(function (data) {
 					$rootScope.$broadcast('polls', {success: false});

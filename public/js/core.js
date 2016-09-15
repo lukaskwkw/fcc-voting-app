@@ -21,6 +21,7 @@ function mainController ($localStorage, $rootScope, $scope, $http, AuthService, 
 
 	$scope.login = AuthService.login;
 	$scope.logout = AuthService.logout;
+	$scope.register = AuthService.register;
 
 	pollService.getPolls();
 

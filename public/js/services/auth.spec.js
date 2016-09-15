@@ -18,6 +18,7 @@ describe('Auth factory', function () {
 		expect(AuthService).toBeDefined();
 		expect(AuthService.login).toBeDefined();
 		expect(AuthService.logout).toBeDefined();
+		expect(AuthService.register).toBeDefined();
 	});
 
 	it('given correct email and password when invoking login function then should get the token from back-end api', function() {
@@ -52,6 +53,25 @@ describe('Auth factory', function () {
 			expect(response.msg).toEqual('Password mismatching');
 		});
 		$httpBackend.flush();
+	});
+
+	it('given email and password when invoking register function then should create new user', function() {
+		$httpBackend.expectPOST('/api/signup', {
+		            "email": "tomek22@poczta.pl",
+		            "password": "tomekpass"
+		        }).respond({
+		        	success: true,
+		        	msg: 'Successful created new user ' + 'tomek22@poczta.pl'
+			});
+		AuthService.register('tomek22@poczta.pl', 'tomekpass').then((response)=>{
+			expect(response.data).toEqual({
+		        	success: true,
+		        	msg: 'Successful created new user ' + 'tomek22@poczta.pl'
+			});
+		});
+
+		$httpBackend.flush();
+
 	});
 
 

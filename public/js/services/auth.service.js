@@ -37,6 +37,19 @@ angular.module('votingApp')
 			})
 		}
 
+		function register (email, password) {
+			var req = {
+				method: 'POST',
+				url: '/api/signup',
+				data: {
+					email,
+					password
+				}
+			}
+
+			return $http(req);
+		}
+
 		function logout () {
 			delete $localStorage.loggedUser;
 			$http.defaults.headers.common.Authorization = '';
@@ -45,7 +58,8 @@ angular.module('votingApp')
 
 		return {
 			login,
-			logout
+			logout,
+			register
 		}
 
 	})
