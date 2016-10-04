@@ -1,4 +1,10 @@
-# fcc-voting-AppDo
+# This repo is no longer under maintanace. Please visit new repo [votingApp](https://github.com/lukaskwkw/votingApp)  
+
+#
+#
+#
+
+## fcc-voting-AppDo
 
 ## Setting up the development environment
 
